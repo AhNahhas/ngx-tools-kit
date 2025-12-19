@@ -3,5 +3,32 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ngx-tools-kit": {
+      "projectType": "library",
+      "root": "projects/ngx-tools-kit",
+      "sourceRoot": "projects/ngx-tools-kit/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-tools-kit/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-tools-kit/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ngx-tools-kit/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-tools-kit/karma.conf.js"
+          }
+        }
+      }
+    }
   }
 }
