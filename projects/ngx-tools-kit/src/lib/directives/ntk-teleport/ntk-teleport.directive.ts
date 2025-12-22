@@ -1,9 +1,9 @@
-import { AfterViewInit, Directive, DOCUMENT, effect, ElementRef, inject, Injector, input, OnDestroy, Renderer2 } from '@angular/core';
+import { afterEveryRender, Directive, DOCUMENT, ElementRef, inject, Injector, input, OnDestroy, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[ntkTeleport]'
 })
-export class NtkTeleport implements AfterViewInit, OnDestroy {
+export class NtkTeleport implements OnDestroy {
   // Directive input
   ntkTeleport = input.required<string>();
 
@@ -17,8 +17,8 @@ export class NtkTeleport implements AfterViewInit, OnDestroy {
   private parent?: HTMLElement;
   private placeholder?: any;
 
-  ngAfterViewInit(): void {
-    effect(() => this.setUp(), { injector: this.injector });
+  constructor() {
+    afterEveryRender(() => this.setUp());
   }
 
   ngOnDestroy(): void {
