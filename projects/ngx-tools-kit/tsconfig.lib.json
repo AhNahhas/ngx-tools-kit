@@ -17,8 +17,8 @@
   },
   "include": [
     "src/**/*.ts"
-, "src/lib/directives/ntk-bulk-loadable"  ],
+  ],
   "exclude": [
-    "**/*.spec.ts"
+    "**/*.spec.ts",
   ]
 }

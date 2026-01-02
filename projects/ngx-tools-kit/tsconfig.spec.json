@@ -16,6 +16,6 @@
     "src/test.ts"
   ],
   "include": [
-    "src/**/*.ts"
-, "src/lib/directives/ntk-bulk-loadable"  ]
+    "src/**/*.spec.ts",
+  ],
 }

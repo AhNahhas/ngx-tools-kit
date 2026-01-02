@@ -1,15 +1,25 @@
-import { Component, ViewContainerRef, viewChild, contentChild, Type, ComponentRef, effect } from '@angular/core';
-import { NtkComponentOutlet } from '@components/ntk-persistent-host/ntk-component-outlet.directive';
+import {
+  Component,
+  ViewContainerRef,
+  viewChild,
+  contentChild,
+  Type,
+  ComponentRef,
+  effect,
+} from '@angular/core';
+import { NtkComponentOutlet } from './ntk-component-outlet.directive';
 
 @Component({
-  selector: 'ntkPersistentHost',
+  selector: 'ntk-persistent-host',
   template: '<ng-container #main></ng-container>',
 })
 export class NtkPersistentHost {
   private readonly component = contentChild.required(NtkComponentOutlet);
-  private readonly viewContainerRef = viewChild.required('main', { read: ViewContainerRef });
-  private readonly persistedComponents: Map<Type<any>, ComponentRef<any>> = new Map();
-  
+  private readonly viewContainerRef = viewChild.required('main', {
+    read: ViewContainerRef,
+  });
+  private readonly persistedComponents = new Map<Type<unknown>, ComponentRef<unknown>>();
+
   constructor() {
     effect(() => {
       const vcr = this.viewContainerRef();
@@ -20,7 +30,7 @@ export class NtkPersistentHost {
       //clear vcr without desotrying the views
       vcr.detach();
 
-      if(this.persistedComponents.has(componentType)) {
+      if (this.persistedComponents.has(componentType)) {
         const persistedComponent = this.persistedComponents.get(componentType)!;
         vcr.insert(persistedComponent.hostView);
       } else {
@@ -31,10 +41,10 @@ export class NtkPersistentHost {
     });
   }
 
-  private applyComponentInputs(ref: ComponentRef<any>, inputs?: Record<string, any>) {
-    if(!inputs) return;
-    
-    for(const [key, value] of Object.entries(inputs)) {
+  private applyComponentInputs(ref: ComponentRef<unknown>, inputs?: Record<string, unknown>): void {
+    if (!inputs) return;
+
+    for (const [key, value] of Object.entries(inputs)) {
       ref.setInput(key, value);
     }
   }

@@ -1,12 +1,12 @@
-import { Directive, signal } from "@angular/core";
+import { Directive, signal } from '@angular/core';
 
 @Directive({
-    selector: '[ntkBulkLoadable]'
+  selector: '[ntkBulkLoadable]',
 })
 export class NtkBulkLoadable {
-    ready = signal<boolean>(false);
+  ready = signal<boolean>(false);
 
-    markReady(value: boolean): void {
-        this.ready.set(value);
-    }
+  markReady(value: boolean): void {
+    this.ready.set(value);
+  }
 }

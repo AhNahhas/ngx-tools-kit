@@ -1,39 +1,36 @@
-import { Component, ComponentRef, provideZonelessChangeDetection, signal } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { NtkTeleport } from './ntk-teleport.directive';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  selector: 'test-component',
-  imports: [NtkTeleport], 
+  selector: 'ntk-test-component',
+  imports: [NtkTeleport],
   template: `
-      <div class="target"></div>
-      <div class="origin">
-        <p [ntkTeleport]="target()">Should teleport</p>
-      </div>
-      <div class="otherTarget"></div>
+    <div class="target"></div>
+    <div class="origin">
+      <p [ntkTeleport]="target()">Should teleport</p>
+    </div>
+    <div class="otherTarget"></div>
   `,
 })
-class TestComponent { 
+class TestComponent {
   target = signal('.target');
 }
 
 describe('NtkTeleport', () => {
   let component: TestComponent;
-  let componentRef: ComponentRef<TestComponent>;
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestComponent],
-        providers: [provideZonelessChangeDetection()],
-      })
-      .compileComponents();
+      providers: [provideZonelessChangeDetection()],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(TestComponent);
-      component = fixture.componentInstance;
-      componentRef = fixture.componentRef;
-      fixture.detectChanges();
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create component', () => {
@@ -60,7 +57,7 @@ describe('NtkTeleport', () => {
 
     //when
     component.target.set('.otherTarget');
-    fixture.detectChanges(); 
+    fixture.detectChanges();
 
     //then
     const otherTargetParagraph = elements[2].query(By.css('p'));

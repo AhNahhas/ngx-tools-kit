@@ -1,7 +1,17 @@
-import { afterEveryRender, Directive, DOCUMENT, ElementRef, inject, Injector, input, OnDestroy, Renderer2 } from '@angular/core';
+import {
+  afterEveryRender,
+  Directive,
+  DOCUMENT,
+  ElementRef,
+  inject,
+  Injector,
+  input,
+  OnDestroy,
+  Renderer2,
+} from '@angular/core';
 
 @Directive({
-  selector: '[ntkTeleport]'
+  selector: '[ntkTeleport]',
 })
 export class NtkTeleport implements OnDestroy {
   // Directive input
@@ -15,7 +25,7 @@ export class NtkTeleport implements OnDestroy {
   // Elements
   private host = inject(ElementRef);
   private parent?: HTMLElement;
-  private placeholder?: any;
+  private placeholder?: HTMLElement;
 
   constructor() {
     afterEveryRender(() => this.setUp());
@@ -46,7 +56,7 @@ export class NtkTeleport implements OnDestroy {
 
   private tearDown(): void {
     if (!this.parent || !this.placeholder) return;
-    
+
     const commentParent = this.placeholder.parentNode;
     this.renderer.insertBefore(commentParent, this.host.nativeElement, this.placeholder);
     this.renderer.removeChild(this.placeholder.parentNode, this.placeholder);

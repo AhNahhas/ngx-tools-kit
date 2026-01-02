@@ -1,51 +1,53 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NtkPersistentHost } from './ntk-persistent-host.component';
-import { Component, ComponentRef, provideZonelessChangeDetection, signal } from '@angular/core';
-import { NtkComponentOutlet } from '@components/ntk-persistent-host/ntk-component-outlet.directive';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { NtkComponentOutlet } from './ntk-component-outlet.directive';
 
 @Component({
-  selector: 'firstChild',
-  template: `{{ binding() }}`
+  selector: 'ntk-first-child',
+  template: `{{ binding() }}`,
 })
-class FirstChildComponent { binding = signal('firstText'); }
+class FirstChildComponent {
+  binding = signal('firstText');
+}
 
 @Component({
-  selector: 'secondChild',
-  template: `{{ binding() }}`
+  selector: 'ntk-second-child',
+  template: `{{ binding() }}`,
 })
-class SecondChildComponent { binding = signal('secondText'); }
+class SecondChildComponent {
+  binding = signal('secondText');
+}
 
 @Component({
   imports: [NtkPersistentHost, NtkComponentOutlet],
-  template:  `
-    <ntkPersistentHost>
+  template: `
+    <ntk-persistent-host>
       <ng-container *ntkComponentOutlet="currentComponent()"></ng-container>
-    </ntkPersistentHost>
-  `
+    </ntk-persistent-host>
+  `,
 })
-class TestComponent { 
+class TestComponent {
   currentComponent = signal(FirstChildComponent);
   toggle(): void {
-    this.currentComponent.update((cmp) => 
-      cmp == FirstChildComponent ? SecondChildComponent : FirstChildComponent);
+    this.currentComponent.update(cmp =>
+      cmp == FirstChildComponent ? SecondChildComponent : FirstChildComponent
+    );
   }
 }
 
 describe('NtkPersistentHost', () => {
   let component: TestComponent;
-  let componentRef: ComponentRef<TestComponent>;
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestComponent],
       providers: [provideZonelessChangeDetection()],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
-    componentRef = fixture.componentRef;
     fixture.detectChanges();
   });
 
@@ -102,7 +104,7 @@ describe('NtkPersistentHost', () => {
 
     //verify there is only one child
     expect(persistentHost.children.length).toEqual(1);
-    
+
     //verify first component
     projected = persistentHost.children[0].componentInstance;
     expect(projected.binding()).toEqual('otherFirstText');
