@@ -4,7 +4,6 @@ import {
   DOCUMENT,
   ElementRef,
   inject,
-  Injector,
   input,
   OnDestroy,
   Renderer2,
@@ -18,7 +17,6 @@ export class NtkTeleport implements OnDestroy {
   ntkTeleport = input.required<string>();
 
   // Private injected services
-  private injector = inject(Injector);
   private renderer = inject(Renderer2);
   private document = inject(DOCUMENT);
 

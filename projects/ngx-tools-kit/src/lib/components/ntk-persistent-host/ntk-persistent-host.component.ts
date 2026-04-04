@@ -15,10 +15,10 @@ import { NtkComponentOutlet } from './ntk-component-outlet.directive';
 })
 export class NtkPersistentHost {
   private readonly component = contentChild.required(NtkComponentOutlet);
+  private readonly persistedComponents = new Map<Type<unknown>, ComponentRef<unknown>>();
   private readonly viewContainerRef = viewChild.required('main', {
     read: ViewContainerRef,
   });
-  private readonly persistedComponents = new Map<Type<unknown>, ComponentRef<unknown>>();
 
   constructor() {
     effect(() => {
