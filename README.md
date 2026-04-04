@@ -1,59 +1,87 @@
 # NgWorkspace
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
+This repository is an Angular workspace containing the `ngx-tools-kit` library package.
 
-## Development server
+## Repository overview
 
-To start a local development server, run:
+- `angular.json` — workspace configuration
+- `package.json` — shared workspace scripts and dependencies
+- `tsconfig.json` — workspace TypeScript configuration
+- `projects/ngx-tools-kit/` — the library package source and package-specific README
 
-```bash
-ng serve
-```
+The primary package in this workspace is `projects/ngx-tools-kit`, which exports reusable Angular components, directives, pipes, and services.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Quick start
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Install dependencies:
 
 ```bash
-ng generate --help
+npm install
 ```
 
-## Building
-
-To build the project run:
+Run the workspace application or library builds:
 
 ```bash
-ng build
+npm run start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Run unit tests:
 
 ```bash
-ng test
+npm test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Run linting:
 
 ```bash
-ng e2e
+npm run lint
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Library workflow
+
+Build the library package:
+
+```bash
+ng build ngx-tools-kit
+```
+
+The compiled package is emitted to `dist/ngx-tools-kit`.
+
+### Publish the library
+
+After building, publish from the package folder:
+
+```bash
+cd dist/ngx-tools-kit
+npm publish
+```
+
+## Package documentation
+
+The library-specific documentation is maintained in `projects/ngx-tools-kit/README.md`.
+
+Use that file for component, directive, service, and pipe usage examples.
+
+## Project structure
+
+- `projects/ngx-tools-kit/src/lib/components/` — reusable Angular components and structural directives
+- `projects/ngx-tools-kit/src/lib/directives/` — standalone directives for DOM and render behavior
+- `projects/ngx-tools-kit/src/lib/services/` — injectable helpers and integration services
+- `projects/ngx-tools-kit/src/lib/pipes/` — template utilities
+
+## Development notes
+
+- The workspace is based on Angular 20 and uses standalone component patterns in the library.
+- The library includes zoneless-friendly APIs and Angular signal-compatible primitives.
+- Keep public exports in `projects/ngx-tools-kit/src/public-api.ts`.
+
+## Useful scripts
+
+- `npm run start` — serve the workspace application
+- `npm test` — run unit tests
+- `npm run lint` — run linting
+- `ng build ngx-tools-kit` — build the library package
 
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+For more information about Angular CLI and workspace configuration, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).
