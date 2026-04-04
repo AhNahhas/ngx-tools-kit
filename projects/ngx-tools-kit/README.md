@@ -1,20 +1,152 @@
 # NgxToolsKit
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+NgxToolsKit is an Angular library that exposes reusable components, directives, services, and pipes for Angular applications.
 
-## Code scaffolding
+## Installation
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Install the library as a dependency in your Angular application:
 
 ```bash
-ng generate --help
+npm install ngx-tools-kit
 ```
+
+## Importing the Library
+
+In a consumer application, import the exported symbols from `ngx-tools-kit`:
+
+```ts
+import {
+  NtkBulkLoad,
+  NtkBulkLoadable,
+  NtkPersistentHost,
+  NtkComponentOutlet,
+  NtkTeleport,
+  NtkMeasure,
+  FormControlErrorPipe,
+  ReducePipe,
+  ntkTokenInterceptor,
+  provideNtkWebSocket,
+} from 'ngx-tools-kit';
+```
+
+Depending on your application setup, add components and directives to a module `imports` or to a standalone component’s `imports`.
+
+## Usage
+
+### Components
+
+#### `NtkBulkLoad`
+
+Use `NtkBulkLoad` to render content only after all child items with `NtkBulkLoadable` are ready.
+
+```html
+<ntk-bulk-load>
+  <div ntkBulkLoadable>Content loaded</div>
+  <div ntkBulkPending>Loading placeholder</div>
+</ntk-bulk-load>
+```
+
+In a child directive, call `markReady(true)` once the individual item is ready.
+
+#### `NtkPersistentHost` and `NtkComponentOutlet`
+
+Use `NtkPersistentHost` together with `NtkComponentOutlet` for dynamic component rendering while preserving previously created instances.
+
+```html
+<ntk-persistent-host>
+  <ng-container *ntkComponentOutlet="currentComponent"></ng-container>
+</ntk-persistent-host>
+```
+
+This allows the host to reuse component instances when the same type is rendered again.
+
+### Directives
+
+#### `NtkTeleport`
+
+Teleport an element to a target DOM location while keeping it under Angular control.
+
+```html
+<div ntkTeleport="#teleportTarget">Teleported content</div>
+<div id="teleportTarget"></div>
+```
+
+#### `NtkMeasure`
+
+Measure the render duration of the host element and receive the result through a callback.
+
+```html
+<div [ntkMeasure]="onMeasure"></div>
+```
+
+```ts
+onMeasure(result: { duration: number; timestamp: number }) {
+  console.log('render took', result.duration, 'ms');
+}
+```
+
+### Pipes
+
+#### `formControlError`
+
+Map Angular form control errors to user-friendly messages.
+
+```html
+<div *ngIf="control.errors">
+  {{ control | formControlError: { required: 'Required field', minlength: 'Minimum length required' } }}
+</div>
+```
+
+#### `ntkReduce`
+
+Reduce an array in the template.
+
+```html
+{{ values | ntkReduce: (sum, item) => sum + item.value : 0 }}
+```
+
+### Services
+
+#### `ntkTokenInterceptor`
+
+Create an HTTP interceptor that adds an authorization token to outgoing requests.
+
+```ts
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ntkTokenInterceptor } from 'ngx-tools-kit';
+
+providers: [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useFactory: () => ntkTokenInterceptor(() => localStorage.getItem('token') ?? ''),
+    multi: true,
+  },
+];
+```
+
+#### `provideNtkWebSocket`
+
+Initialize a WebSocket connection when the application starts.
+
+```ts
+import { provideNtkWebSocket } from 'ngx-tools-kit';
+
+providers: [
+  provideNtkWebSocket({
+    url: 'wss://example.com/socket',
+    protocols: ['protocol1'],
+    onOpen: event => console.log('open', event),
+    onMessage: event => console.log('message', event),
+  }),
+];
+```
+
+#### Utilities
+
+The library also exposes utility classes for common tasks:
+
+- `NtkCommonUtils` for null/empty checks, padding, and `HttpParams` conversion
+- `NtkFormUtils` for reusable form validators such as email, date, and array validators
 
 ## Building
 
@@ -24,25 +156,18 @@ To build the library, run:
 ng build ngx-tools-kit
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+The compiled artifacts will be created in `dist/ngx-tools-kit`.
 
-### Publishing the Library
+## Publishing the Library
 
-Once the project is built, you can publish your library by following these steps:
+Once the project is built, publish it from the distribution folder:
 
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/ngx-tools-kit
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+```bash
+cd dist/ngx-tools-kit
+npm publish
+```
 
 ## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
 ```bash
 ng test
@@ -50,14 +175,10 @@ ng test
 
 ## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
-
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+For more information on using the Angular CLI, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).
