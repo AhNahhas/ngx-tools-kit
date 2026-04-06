@@ -4,22 +4,16 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "../../out-tsc/lib",
-    "declaration": true,
-    "declarationMap": true,
-    "inlineSources": true,
-    "inlineSourceMap": true,
+    "outDir": "../../out-tsc/app",
     "paths": {
-      "@components/*": ["./src/lib/components/*"],
-      "@directives/*": ["./src/lib/directives/*"],
-      "@services/*": ["./src/lib/services/*"],
-      "@models/*": ["./src/lib/models/*"],
+      "@components/*": ["./src/app/components/*"],
+      "@services/*": ["./src/app/services/*"],
     }
   },
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
-    "**/*.spec.ts",
+    "src/**/*.spec.ts"
   ]
 }
