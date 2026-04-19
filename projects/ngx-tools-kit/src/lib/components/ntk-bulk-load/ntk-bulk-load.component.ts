@@ -12,6 +12,6 @@ import { NtkBulkLoadable } from './ntk-bulk-loadable.directive';
   `,
 })
 export class NtkBulkLoad {
-  children = contentChildren(NtkBulkLoadable);
+  children = contentChildren(NtkBulkLoadable, { descendants: true });
   whenDone = computed(() => this.children().every(child => child.ready()));
 }

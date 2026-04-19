@@ -8,7 +8,11 @@
     "paths": {
       "@components/*": ["./src/app/components/*"],
       "@services/*": ["./src/app/services/*"],
-    }
+      "ngx-tools-kit": ["../../dist/ngx-tools-kit"]
+    },
+    "types": [
+      "@angular/localize"
+    ]
   },
   "include": [
     "src/**/*.ts"

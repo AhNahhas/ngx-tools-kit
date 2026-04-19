@@ -1,0 +1,17 @@
+<div class="row mt-5">
+  <div class="col-12">
+    @for (component of components(); let index = $index; track index) {
+      <button (click)="switchComponent(index)" class="btn btn-success me-2 mb-2">
+        {{ 'Input ' + (index + 1) }}
+      </button>
+    }
+  </div>
+  <div class="col-12 mt-3">
+    <ntk-persistent-host>
+      <ng-container 
+        *ntkComponentOutlet="currentComponent(); inputs: { placeholder: currentComponentInput() }"
+      >
+      </ng-container>
+    </ntk-persistent-host>
+  </div>
+</div>

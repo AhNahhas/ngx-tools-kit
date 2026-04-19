@@ -65,6 +65,9 @@
             ],
             "styles": [
               "projects/examples/src/styles.scss"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
             ]
           },
           "configurations": {
@@ -119,6 +122,9 @@
             ],
             "styles": [
               "projects/examples/src/styles.scss"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
             ]
           }
         },
