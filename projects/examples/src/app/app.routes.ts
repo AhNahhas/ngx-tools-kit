@@ -14,13 +14,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/persistent-host/persistent-host').then(m => m.PersistentHost),
       },
-      /*{
-        path: 'measure',
-        loadComponent: () => import('./components/measure/measure').then(m => m.Measure),
-      },
       {
         path: 'teleport',
         loadComponent: () => import('./components/teleport/teleport').then(m => m.Teleport),
+      },
+      /*{
+        path: 'measure',
+        loadComponent: () => import('./components/measure/measure').then(m => m.Measure),
       },*/
     ],
   },

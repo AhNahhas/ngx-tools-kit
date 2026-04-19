@@ -1,0 +1,15 @@
+<div id="teleport-target" class="border border-danger p-4 m-4">
+  Teleport Target Area 1
+</div>
+
+<div id="teleport-target-2" class="border border-warning p-4 m-4">
+  Teleport Target Area 2
+</div>
+
+<div [ntkTeleport]="target()">
+  <p>This content has been teleported here!</p>
+</div>
+
+<button class="btn btn-success" (click)="toggle()">
+  Teleported Button
+</button>
