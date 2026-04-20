@@ -1,0 +1,10 @@
+<div [ntkMeasure]="onMeasure">
+  @for (item of iteratee; track $index; let index = $index) {
+    @if (index === iteratee.length - 1) {
+      <p class="mt-2">Finished loading</p>
+    }
+  }
+
+  <p class="mb-0">Duration: {{ result().duration }} ms</p>
+  <p>Timestamp: {{ result().timestamp }} ms</p>
+</div>

@@ -18,10 +18,10 @@ export const routes: Routes = [
         path: 'teleport',
         loadComponent: () => import('./components/teleport/teleport').then(m => m.Teleport),
       },
-      /*{
+      {
         path: 'measure',
         loadComponent: () => import('./components/measure/measure').then(m => m.Measure),
-      },*/
+      },
     ],
   },
 ];
