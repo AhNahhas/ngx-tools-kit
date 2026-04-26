@@ -3,6 +3,11 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'bulk-load',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     loadComponent: () => import('./components/home/home').then(m => m.Home),
     children: [
       {
@@ -23,5 +28,9 @@ export const routes: Routes = [
         loadComponent: () => import('./components/measure/measure').then(m => m.Measure),
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'bulk-load',
   },
 ];
