@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, input } from '@angular/core';
+import { AfterViewChecked, Directive, DoCheck, input } from '@angular/core';
 
 export interface NtkMeasureResult {
   duration: number;
@@ -8,17 +8,18 @@ export interface NtkMeasureResult {
 @Directive({
   selector: '[ntkMeasure]',
 })
-export class NtkMeasure implements AfterViewInit {
-  ntkMeasure = input.required<(result: NtkMeasureResult) => unknown>();
+export class NtkMeasure implements DoCheck, AfterViewChecked {
+  // should be a logger function or risk CD errors
+  ntkMeasure = input.required<(result: NtkMeasureResult) => void>();
   private start = 0;
 
-  constructor() {
+  ngDoCheck(): void {
     this.start = performance.now();
   }
 
-  ngAfterViewInit(): void {
-    const callback = this.ntkMeasure();
-    callback({
+  ngAfterViewChecked(): void {
+    // if this functions mutates state then a possible CD error
+    this.ntkMeasure()({
       duration: performance.now() - this.start,
       timestamp: Date.now(),
     });

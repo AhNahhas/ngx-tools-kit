@@ -1,15 +1,15 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NtkMeasure, NtkMeasureResult } from 'ngx-tools-kit';
 
 @Component({
   selector: 'ntk-measure-example',
   standalone: true,
-  imports: [NtkMeasure],
+  imports: [NtkMeasure, FormsModule],
   templateUrl: './measure.html',
   styleUrl: './measure.scss',
 })
 export class Measure {
-  iteratee = new Array<void>(100);
-  result = signal<NtkMeasureResult>({ duration: 0, timestamp: 0 });
-  onMeasure = (result: NtkMeasureResult) => this.result.set(result);
+  forLoop = new Array<void>(100);
+  onMeasure = (result: NtkMeasureResult) => console.log(result);
 }
