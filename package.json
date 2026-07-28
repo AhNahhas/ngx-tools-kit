@@ -18,6 +18,9 @@
     "@angular/forms": "^20.3.18",
     "@angular/platform-browser": "^20.3.18",
     "@angular/router": "^20.3.18",
+    "@ng-bootstrap/ng-bootstrap": "^19.0.1",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.6",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -42,9 +45,6 @@
     "prettier": "^3.7.4",
     "prettier-eslint": "^16.4.2",
     "typescript": "~5.8.2",
-    "typescript-eslint": "8.46.4",
-    "@ng-bootstrap/ng-bootstrap": "^19.0.1",
-    "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.6"
+    "typescript-eslint": "8.46.4"
   }
 }
